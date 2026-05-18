@@ -64,7 +64,7 @@ export function renderAbout(about) {
 
 export function renderBenefits(benefits) {
   return `
-    <section class="section" id="benefits">
+    <section class="section" id="prep">
       ${sectionIntro(benefits.kicker, benefits.title)}
       <div class="grid-3" style="margin-top:22px;">
         ${benefits.items
@@ -235,23 +235,11 @@ export function renderLead(lead) {
     <section class="section" id="lead">
       <div class="lead-card">
         ${sectionIntro(lead.kicker, lead.title, lead.text)}
-        <form class="lead-form" id="lead-form">
-          <input type="text" name="name" placeholder="Имя и фамилия" required />
-          <input type="email" name="email" placeholder="Ваш e-mail" required />
-          <input type="text" name="contact" placeholder="Телефон или Telegram" required />
-          <select name="package">
-            <option value="one-session">1 онлайн-занятие — 80 €</option>
-            <option value="three-sessions">3 онлайн-занятия — 200 €</option>
-            <option value="five-sessions-kit">5 онлайн-занятий + Nosework Kit — 350 €</option>
-          </select>
-          <textarea name="comment" rows="5" placeholder="Расскажите кратко о собаке и вашей задаче"></textarea>
-          <label class="tiny form-row-full">
-            <input type="checkbox" name="kit" value="yes" />
-            Хочу добавить или отдельно заказать Nosework Kit
-          </label>
-          <button class="button button-primary" type="submit">Записаться</button>
-          <div class="form-note" id="form-status">Форма пока подключена как технический черновик до финальной настройки Telegram и Google Sheets.</div>
-        </form>
+        <div style="margin-top:22px; display:grid; gap:14px;">
+          <p>На этом этапе собака уже спокойно взаимодействует с банками, знает команды «Нюхай», «Ищи» и «Смотри», знакома с запахом и начинает собирать поиск с обозначением в одну понятную цепочку.</p>
+          <p>Если в каком-то месте ещё не хватает уверенности, курс предлагает не бежать дальше, а вернуться к нужному уроку, повторить шаг и снова закончить сессию на успехе.</p>
+          <div class="form-note" id="form-status">Следующий мой шаг — довести визуал страницы до качества оригинального Tilda-проекта и только потом показывать тебе новый черновик на `pages.dev`.</div>
+        </div>
       </div>
     </section>
   `;
