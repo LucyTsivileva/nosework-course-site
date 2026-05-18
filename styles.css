@@ -266,6 +266,12 @@ p {
   background: rgba(255, 255, 255, 0.08);
 }
 
+.lead-secondary {
+  border-color: rgba(18, 18, 18, 0.14);
+  color: var(--blue-deep);
+  background: #fff;
+}
+
 .hero-art {
   position: relative;
   min-height: 430px;

@@ -153,7 +153,7 @@ export function renderKit(kit) {
             ${kit.features.map((item) => `<li>${item}</li>`).join("")}
           </ul>
           <div class="button-row">
-            <a class="button button-primary" href="#lead">Записаться</a>
+            <a class="button button-primary" href="#lead">Смотреть итог</a>
           </div>
         </article>
         <aside class="panel illustration-card">
@@ -238,7 +238,11 @@ export function renderLead(lead) {
         <div style="margin-top:22px; display:grid; gap:14px;">
           <p>На этом этапе собака уже спокойно взаимодействует с банками, знает команды «Нюхай», «Ищи» и «Смотри», знакома с запахом и начинает собирать поиск с обозначением в одну понятную цепочку.</p>
           <p>Если в каком-то месте ещё не хватает уверенности, курс предлагает не бежать дальше, а вернуться к нужному уроку, повторить шаг и снова закончить сессию на успехе.</p>
-          <div class="form-note" id="form-status">Следующий мой шаг — довести визуал страницы до качества оригинального Tilda-проекта и только потом показывать тебе новый черновик на `pages.dev`.</div>
+          <div class="form-note" id="form-status">Идите шаг за шагом, не спешите усложнять задачу и оставляйте собаке пространство для уверенного, спокойного поиска. Именно так курс собирается в крепкий навык, а не в разовые удачные попытки.</div>
+          <div class="button-row">
+            <a class="button button-primary" href="#roadmap">Вернуться к урокам</a>
+            <a class="button button-secondary lead-secondary" href="#faq">Посмотреть подсказки</a>
+          </div>
         </div>
       </div>
     </section>
@@ -246,10 +250,14 @@ export function renderLead(lead) {
 }
 
 export function renderFooter(footer) {
+  const links = footer.links?.length
+    ? `<div>${footer.links.map((link) => `<a href="${link.href}" target="_blank" rel="noreferrer">${link.label}</a>`).join(" · ")}</div>`
+    : "";
+
   return `
     <footer class="footer">
       <div>${footer.copyright}</div>
-      <div>${footer.links.map((link) => `<a href="${link.href}" target="_blank" rel="noreferrer">${link.label}</a>`).join(" · ")}</div>
+      ${links}
     </footer>
   `;
 }

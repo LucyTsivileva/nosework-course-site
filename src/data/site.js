@@ -218,9 +218,6 @@ export const siteData = {
   },
   footer: {
     copyright: "© 2018–2026 Lucy Tsivileva",
-    links: [
-      { label: "Проект в GitHub", href: "https://github.com/LucyTsivileva/nosework-course-site" },
-      { label: "Черновой Pages", href: "https://nosework-course-site.pages.dev" },
-    ],
+    links: [],
   },
 };
