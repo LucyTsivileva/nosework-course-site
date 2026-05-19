@@ -1,39 +1,27 @@
-function intro(kicker, title, text = "") {
+function sectionHeading(kicker, title, text = "") {
   return `
-    <div class="section-kicker">${kicker}</div>
-    <h2>${title}</h2>
-    ${text ? `<p class="section-text">${text}</p>` : ""}
+    <div class="section-heading">
+      ${kicker ? `<div class="section-kicker">${kicker}</div>` : ""}
+      <h2>${title}</h2>
+      ${text ? `<p class="section-text">${text}</p>` : ""}
+    </div>
   `;
 }
 
 export function renderHero(hero) {
   return `
     <section class="hero" id="hero">
-      <div class="hero-copy">
-        <div class="eyebrow">${hero.kicker}</div>
-        <h1>${hero.title}</h1>
-        <p>${hero.description}</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="${hero.primaryCta.href}">${hero.primaryCta.label}</a>
-          <a class="button button-secondary" href="${hero.secondaryCta.href}">${hero.secondaryCta.label}</a>
-        </div>
-        <div class="hero-meta">
-          ${hero.stats
-            .map(
-              (item) => `
-                <article class="meta-card">
-                  <strong>${item.title}</strong>
-                  <span>${item.text}</span>
-                </article>
-              `,
-            )
-            .join("")}
-        </div>
+      <div class="hero-topline">${hero.topline}</div>
+      <div class="hero-dog">
+        <img src="${hero.image}" alt="${hero.imageAlt}" />
       </div>
-      <div class="hero-art">
-        <div class="hero-art-card">
-          <img src="${hero.image}" alt="${hero.imageAlt}" />
-        </div>
+      <div class="hero-bubble bubble-left-top">${hero.bubbles[0]}</div>
+      <div class="hero-bubble bubble-right-top">${hero.bubbles[1]}</div>
+      <div class="hero-bubble bubble-left-bottom">${hero.bubbles[2]}</div>
+      <div class="hero-bubble bubble-right-bottom">${hero.bubbles[3]}</div>
+      <h1>${hero.title.replace(/\n/g, "<br />")}</h1>
+      <div class="hero-actions">
+        <a class="button button-primary" href="${hero.primaryCta.href}">${hero.primaryCta.label}</a>
       </div>
     </section>
   `;
@@ -41,21 +29,17 @@ export function renderHero(hero) {
 
 export function renderAbout(about) {
   return `
-    <section class="section section-grid" id="about">
-      <div class="section-main">
-        ${intro(about.kicker, about.title, about.text)}
-      </div>
-      <div class="note-stack">
-        ${about.notes
-          .map(
-            (note) => `
-              <article class="note-card">
-                <h3>${note.title}</h3>
-                <p>${note.text}</p>
-              </article>
-            `,
-          )
-          .join("")}
+    <section class="section section-about" id="about">
+      <div class="two-column">
+        <div class="text-card text-card-plain">
+          ${sectionHeading(about.kicker, about.title)}
+          <div class="text-stack">
+            ${about.body.map((item) => `<p>${item}</p>`).join("")}
+          </div>
+        </div>
+        <div class="image-card image-card-yellow">
+          <img src="${about.image}" alt="${about.imageAlt}" />
+        </div>
       </div>
     </section>
   `;
@@ -63,13 +47,13 @@ export function renderAbout(about) {
 
 export function renderProgram(program) {
   return `
-    <section class="section" id="program">
-      ${intro(program.kicker, program.title, program.text)}
-      <div class="feature-grid">
+    <section class="section section-band" id="program">
+      ${sectionHeading(program.kicker, program.title, program.text)}
+      <div class="program-list">
         ${program.items
           .map(
             (item) => `
-              <article class="feature-card">
+              <article class="program-row">
                 <h3>${item.title}</h3>
                 <p>${item.text}</p>
               </article>
@@ -77,7 +61,7 @@ export function renderProgram(program) {
           )
           .join("")}
       </div>
-      <blockquote class="quote-banner">
+      <blockquote class="program-quote">
         <p>${program.quote}</p>
         <span>${program.quoteAuthor}</span>
       </blockquote>
@@ -87,13 +71,13 @@ export function renderProgram(program) {
 
 export function renderBenefits(benefits) {
   return `
-    <section class="section alt-section" id="benefits">
-      ${intro(benefits.kicker, benefits.title)}
-      <div class="benefit-grid">
+    <section class="section" id="benefits">
+      ${sectionHeading(benefits.kicker, benefits.title)}
+      <div class="icon-grid icon-grid-4">
         ${benefits.items
           .map(
             (item) => `
-              <article class="benefit-card">
+              <article class="mini-card center-card">
                 <h3>${item.title}</h3>
                 <p>${item.text}</p>
               </article>
@@ -108,12 +92,12 @@ export function renderBenefits(benefits) {
 export function renderRoadmap(roadmap) {
   return `
     <section class="section" id="roadmap">
-      ${intro(roadmap.kicker, roadmap.title)}
-      <div class="learn-grid">
+      ${sectionHeading(roadmap.kicker, roadmap.title)}
+      <div class="icon-grid icon-grid-3">
         ${roadmap.items
           .map(
             (item) => `
-              <article class="learn-card">
+              <article class="mini-card center-card">
                 <h3>${item.title}</h3>
                 <p>${item.text}</p>
               </article>
@@ -127,25 +111,23 @@ export function renderRoadmap(roadmap) {
 
 export function renderHow(how) {
   return `
-    <section class="section section-grid alt-section" id="how">
-      <div class="section-main">
-        ${intro(how.kicker, how.title, how.text)}
-        <a class="button button-primary" href="${how.cta.href}">${how.cta.label}</a>
-      </div>
-      <div class="steps-list">
+    <section class="section section-band-light" id="how">
+      ${sectionHeading(how.kicker, how.title)}
+      <div class="steps-grid">
         ${how.steps
           .map(
             (step, index) => `
-              <article class="step-row">
-                <div class="step-number">${String(index + 1).padStart(2, "0")}</div>
-                <div>
-                  <h3>${step.title}</h3>
-                  <p>${step.text}</p>
-                </div>
+              <article class="step-card">
+                <div class="step-index">0${index + 1}</div>
+                <h3>${step.title}</h3>
+                <p>${step.text}</p>
               </article>
             `,
           )
           .join("")}
+      </div>
+      <div class="center-actions">
+        <a class="button button-primary" href="${how.cta.href}">${how.cta.label}</a>
       </div>
     </section>
   `;
@@ -153,14 +135,16 @@ export function renderHow(how) {
 
 export function renderInstructor(instructor) {
   return `
-    <section class="section section-grid" id="instructor">
-      <div class="media-card">
-        <img src="${instructor.image}" alt="${instructor.imageAlt}" />
-      </div>
-      <div class="section-main">
-        ${intro(instructor.kicker, instructor.title)}
-        <div class="text-stack">
-          ${instructor.body.map((text) => `<p>${text}</p>`).join("")}
+    <section class="section" id="instructor">
+      <div class="two-column two-column-reverse">
+        <div class="image-card image-card-plain">
+          <img src="${instructor.image}" alt="${instructor.imageAlt}" />
+        </div>
+        <div class="text-card">
+          ${sectionHeading(instructor.kicker, instructor.title)}
+          <div class="text-stack">
+            ${instructor.body.map((item) => `<p>${item}</p>`).join("")}
+          </div>
         </div>
       </div>
     </section>
@@ -169,19 +153,21 @@ export function renderInstructor(instructor) {
 
 export function renderKit(kit) {
   return `
-    <section class="section section-grid alt-section" id="kit">
-      <div class="section-main">
-        ${intro(kit.kicker, kit.title, kit.text)}
-        <ul class="plain-list">
-          ${kit.features.map((item) => `<li>${item}</li>`).join("")}
-        </ul>
-        <div class="price-inline">
-          <div><span>Отдельно</span><strong>${kit.standalonePrice}</strong></div>
-          <div><span>С курсом</span><strong>${kit.bundlePrice}</strong></div>
+    <section class="section" id="kit">
+      <div class="two-column">
+        <div class="text-card">
+          ${sectionHeading(kit.kicker, kit.title, kit.text)}
+          <ul class="plain-list">
+            ${kit.features.map((item) => `<li>${item}</li>`).join("")}
+          </ul>
+          <div class="price-pair">
+            <div><span>Стоимость набора</span><strong>${kit.standalonePrice}</strong></div>
+            <div><span>При записи на курс</span><strong>${kit.bundlePrice}</strong></div>
+          </div>
         </div>
-      </div>
-      <div class="media-card media-card-accent">
-        <img src="${kit.image}" alt="${kit.imageAlt}" />
+        <div class="image-card image-card-blue">
+          <img src="${kit.image}" alt="${kit.imageAlt}" />
+        </div>
       </div>
     </section>
   `;
@@ -190,12 +176,12 @@ export function renderKit(kit) {
 export function renderPricing(pricing) {
   return `
     <section class="section" id="pricing">
-      ${intro(pricing.kicker, pricing.title)}
+      ${sectionHeading(pricing.kicker, pricing.title)}
       <div class="pricing-grid">
         ${pricing.plans
           .map(
             (plan) => `
-              <article class="pricing-card${plan.emphasis ? " pricing-card-featured" : ""}">
+              <article class="pricing-card${plan.emphasis ? " pricing-card-primary" : ""}">
                 <div class="pricing-badge">${plan.badge}</div>
                 <h3>${plan.name}</h3>
                 <div class="pricing-amount">${plan.amount}</div>
@@ -214,8 +200,8 @@ export function renderPricing(pricing) {
 
 export function renderReviews(reviews) {
   return `
-    <section class="section alt-section" id="reviews">
-      ${intro(reviews.kicker, reviews.title)}
+    <section class="section section-band-light" id="reviews">
+      ${sectionHeading(reviews.kicker, reviews.title)}
       <div class="reviews-grid">
         ${reviews.items
           .map(
@@ -228,6 +214,9 @@ export function renderReviews(reviews) {
           )
           .join("")}
       </div>
+      <div class="center-actions">
+        <a class="button button-primary" href="#lead">${reviews.cta}</a>
+      </div>
     </section>
   `;
 }
@@ -235,7 +224,7 @@ export function renderReviews(reviews) {
 export function renderFaq(faq) {
   return `
     <section class="section" id="faq">
-      ${intro(faq.kicker, faq.title)}
+      ${sectionHeading(faq.kicker, faq.title)}
       <div class="faq-list">
         ${faq.items
           .map(
@@ -254,12 +243,12 @@ export function renderFaq(faq) {
 
 export function renderLead(lead) {
   return `
-    <section class="section alt-section" id="lead">
-      <div class="lead-layout">
-        <div class="section-main">
-          ${intro(lead.kicker, lead.title, lead.text)}
+    <section class="section section-band-light" id="lead">
+      <div class="lead-wrap">
+        <div class="text-card text-card-plain">
+          ${sectionHeading(lead.kicker, lead.title, lead.text)}
           <div class="text-stack">
-            ${lead.notes.map((note) => `<p>${note}</p>`).join("")}
+            ${lead.notes.map((item) => `<p>${item}</p>`).join("")}
           </div>
         </div>
         <form class="lead-form" id="lead-form">
